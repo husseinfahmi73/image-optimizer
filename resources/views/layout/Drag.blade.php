@@ -10,9 +10,10 @@
 <img src="{{ asset("Images/select_img.png") }}" alt="" class="h-80">
 
 </div>
-<div class="button-img mx-auto  flex justify-center items-center mr-10">
+<div class="button-img mx-auto  flex justify-center items-center mr-10 gap-4">
     <label for="img" class="bg-primary p-2 text-white capitalize rounded-md">select img</label>
     <input type="file" hidden class="" id="img" >
+    <input type="submit" value="send" class="bg-muted py-2 px-8 rounded-md ">
 </div>
 
 
