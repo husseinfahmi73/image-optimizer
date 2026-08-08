@@ -17,6 +17,7 @@
 <div class="container md:mx-auto px-4 min-h-screen overflow-x-hidden">
         @include('layout.Header')
     @include("layout.Drag")
+
 </div>
 
 </body>
