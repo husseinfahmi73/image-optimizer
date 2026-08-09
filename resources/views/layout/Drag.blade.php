@@ -1,45 +1,67 @@
+@if(session('success'))
+    <x-alert 
+        :message="session('success')" 
+        type="success"
+    />
+@endif
+
+
+@if(session('error'))
+    <x-alert 
+        :message="session('error')" 
+        type="error"
+    />
+@endif
+
 <div class="text text-center truncate font-bold font-serif text-xl my-4">
-قم بختيار صورة او اسحب الصورة
+    قم بختيار صورة او اسحب الصورة
 </div>
+
+
 <main class="w-full min-h-96 border-primary border-1 rounded-2xl drag">
+    <div class="drag  flex flex-col justify-center items-center">
+        <form action="{{ route('image.upload') }}" method="post" enctype="multipart/form-data">
+            @csrf
 
-<div class="drag  flex flex-col justify-center items-center" >
-<form action="" method="post">
-
-<div class="img" >
-<img src="{{ asset("Images/select_img.png") }}" alt="" class="h-80">
-
-</div>
-<div class="button-img mx-auto  flex justify-center items-center mr-10 gap-4">
-    <label for="img" class="bg-primary p-2 text-white capitalize rounded-md">select img</label>
-    <input type="file" hidden class="" id="img" >
-    <input type="submit" value="send" class="bg-muted py-2 px-8 rounded-md ">
-</div>
+            <div class="img">
+                <img id="preview" src="{{ asset('Images/select_img.png') }}" alt="" class="h-80">
+                <span id="file-name" class="text-sm"></span>
+            </div>
 
 
-</form>
+            <div class="button-img mx-auto flex justify-center items-center mr-10 gap-4">
+                <label for="img" class="bg-primary p-2 text-white capitalize rounded-md cursor-pointer">
+                    select img
+                </label>
 
-</div>
-
-
-
-</main>
-<script>
-let drag=document.querySelector(".drag");
-let img=document.getElementById("img");
-drag.addEventListener("dragover",(event)=>{event.preventDefault()});
-drag.addEventListener("drop", (event) => {
-    event.preventDefault();
+                <input type="file" hidden id="img" name="image" accept="image/*">
 
 
+                <input type="submit" value="send" class="bg-muted py-2 px-8 rounded-md cursor-pointer">
+            </div>
+        </form>
 
-    let files=event.dataTransfer.files;
-    if(files.length >0){
+        <script>
+
+            const input = document.getElementById('img');
+            const fileName = document.getElementById('file-name');
+            const preview = document.getElementById('preview');
 
 
-img.files=files;
+            input.addEventListener('change', function () {
 
-    }
-});
+                if (this.files.length > 0) {
+                    fileName.innerHTML = this.files[0].name;
 
-</script>
+                    let reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                    }
+
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+        </script>
+
